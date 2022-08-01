@@ -9,9 +9,16 @@
     </head>
     <body>
        <h1>US_Covid_Cases</h1>
-        
+        <div id="message"></div>
+        <p>This web page tries to show the active, recovered and death cases for each state of US for the year 2021. This page contains the US map with all the states in the top left side. Once the user clicks on a particular state from the map, it displays a line chart in the right side with multiple lines with Active/Recovered/Death Cases<br>
+        </p>
         <div id="map"></div>
         <script>USAMap();</script>
         <div id="chart"></div>  
+        <div id="bottomright">
+        Active Cases<hr style="width:50%",  color=black>
+        Recovered Cases<hr style="width:50%",  color=green>
+        Death Cases<hr style="width:50%", color=red>
+        </div>
     </body>
 </html>

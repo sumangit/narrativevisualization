@@ -10,50 +10,18 @@ h2 {
   text-align: center;
   font-weight: normal;
 }
+p {
+  color: darkolivegreen;
+  text-align: center;
+  font-weight: normal;
+  background: yellow;
+}
 .line {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
 }
-
-.slidecontainer {
-    width: 100%; /* Width of the outside container */
-  }
-  
-  .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-  }
-  /* The slider itself */
-  .slider1 {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-  }
-  
-  /* Mouse-over effects */
-  .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-  }
-
-  .slideoptions {
-    color: darkviolet;
-  }
-  
-  .state {
+ .state {
     fill:#e3e3e3;
     stroke: #333;
     stroke-width: 0.5;
@@ -61,27 +29,43 @@ h2 {
 .selected {
     fill: yellow
 }
-#chart1 {
-  height: 207px;
-  width: 250px;
-  margin-right: 0px;
-  padding: 0px;
-  float:right;
-}
+
 #chart {
   height: 707px;
   width: 650px;
   margin-right: 0px;
   padding: 0px;
   float:right;
+  size:"3";
+  stroke-width: 1px;
+}
+.annotation-group {
+  margin-right: 0px;
+  padding: 0px;
+  float:right;
+  size:"3";
+  stroke-width: 1px;
 }
 #map {
   width:712px;
   height: 207px;
   float:left;
 }
+#bottomright {
+  position: fixed;
+  right: 0px; 
+  bottom: 0px;
+  width: 200px;
+  height:200px;
+  
+  padding: 5px;
+  
+}
 :root {
   --accent-color: #E8336D;
+  --annotation-context-color: #00796B;
+  --annotation-above-color: #00BFA5;
+  --annotation-anomaly-color: #E8336D;
 }
 
  svg {
