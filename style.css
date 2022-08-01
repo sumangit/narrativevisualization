@@ -30,7 +30,7 @@ p {
     fill: yellow
 }
 
-#chart {
+#chart1 {
   height: 707px;
   width: 650px;
   margin-right: 0px;
@@ -46,7 +46,26 @@ p {
   size:"3";
   stroke-width: 1px;
 }
-#map {
+.wrapper {
+  position: relative;
+  clear: both;
+  width: 100%;
+  border : 1px solid #000000;
+  overflow:auto;
+  }
+  #map {
+    float: left;
+		width: 49%;
+		background: #ffffff;
+		border : 1px solid #000006;
+  }
+  #chart {
+    float: right;
+		width: 49%;
+		background: #ffffff;
+		border : 1px solid #000001;
+  }
+#map1 {
   width:712px;
   height: 207px;
   float:left;
