@@ -1,5 +1,5 @@
 function USAMap() {
-
+console.log("hello")
     var margin = {top: 50, left: 50, right: 50, bottom: 50},
         height = 400 - margin.top - margin.bottom,
         width = 800 - margin.left - margin.right
@@ -34,6 +34,7 @@ function USAMap() {
         }) 
         .on("click", function(d) {
             d3.select(this).classed("selected",true)
+            console.log("hi");
            displayLineChart(d.properties.name)
         })
         
@@ -41,7 +42,7 @@ function USAMap() {
 }
 
 function displayLineChart(state) {
-  
+  console.log("hi");
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 100},
 width = 700 - margin.left - margin.right,
@@ -65,10 +66,6 @@ var valueRecoveredline = d3.line()
 .x(function(d) { return x(d.Date); })
 .y(function(d) { return y(d.Recovered); });
 
-
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
 d3.selectAll("#chart").html(null);
 var svg = d3.select("#chart").append("svg")
 .attr("width", width + margin.left + margin.right)
@@ -77,6 +74,10 @@ var svg = d3.select("#chart").append("svg")
 .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")");
 
+var active_cases;
+
+
+console.log("active_cases",active_cases)
 // Get the data
 d3.csv("project_data_"+state+".csv", function(error,data) {
 
@@ -84,9 +85,18 @@ if (error) throw error;
 
 // format the data
 data.forEach(function(d) {
+  
+  if(d.Date == "11/1/21")
+    active_cases_nov = d.Active;
+  if(d.Date == "8/1/21")
+    active_cases_aug = d.Active;
+  if(d.Date == "3/1/21")
+    active_cases_mar = d.Active;
+  console.log("active_cases",active_cases)
   d.Date = parseTime(d.Date);
   d.Active = +d.Active;
-  //console.log(d.Date, d.Active)
+  
+  console.log(d.Date, d.Active)
 });
 var x_label;
 var y_label;
@@ -130,10 +140,54 @@ svg.append("g")
     //can use x, y directly instead of data
     
     className: "show-bg",
-    dy: 37,
-    dx: 62
+    x: 400,
+    y: 200,
+    dy: 7,
+    dx: 6
   }].map(function (l) {
-    l.note = Object.assign({}, l.note, { title: "Covid cases in:" + state });
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_nov });
+    l.x = x(parseTime("11/1/21"))
+    l.y = y(active_cases_nov)
+    return l;
+  });
+
+  const annotations_aug = [{
+    note: {
+      //label: "Covid cases in ",
+      bgPadding: 20,
+      //title: "Annotations :)"
+    },
+    //can use x, y directly instead of data
+    
+    className: "show-bg",
+    x: 400,
+    y: 200,
+    dy: 7,
+    dx: 6
+  }].map(function (l) {
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_aug });
+    l.x = x(parseTime("8/1/21"))
+    l.y = y(active_cases_aug)
+    return l;
+  });
+
+  const annotations_mar = [{
+    note: {
+      //label: "Covid cases in ",
+      bgPadding: 20,
+      //title: "Annotations :)"
+    },
+    //can use x, y directly instead of data
+    
+    className: "show-bg",
+    x: 400,
+    y: 200,
+    dy: 7,
+    dx: 6
+  }].map(function (l) {
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_mar });
+    l.x = x(parseTime("3/1/21"))
+    l.y = y(active_cases_mar)
     return l;
   });
 
@@ -142,20 +196,29 @@ svg.append("g")
   const type = d3.annotationCalloutElbow
   const makeAnnotations = d3.annotation()
   .type(type)
-  .accessors({
-    x_scale: d => x(parseTime("4/12/21")),
-    y_scale: d => y(d.Recovered)
-  })
-  .accessorsInverse({
-    date: d => timeFormat(x.invert(d.x)),
-    Recovered: d => y.invert(d.y)
-  })
   .annotations(annotations)
+
+  const makeAnnotations_aug = d3.annotation()
+  .type(type)
+  .annotations(annotations_aug)
+
+  const makeAnnotations_mar = d3.annotation()
+  .type(type)
+  .annotations(annotations_mar)
 
   console.log("test")
   svg.append("g")
   .attr("class", "annotation-group")
   .call( makeAnnotations )
+
+  svg.append("g")
+  .attr("class", "annotation-group")
+  .call( makeAnnotations_aug )
+
+  svg.append("g")
+  .attr("class", "annotation-group")
+  .call( makeAnnotations_mar )
+
  
 });
   
