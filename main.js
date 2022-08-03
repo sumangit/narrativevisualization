@@ -58,7 +58,7 @@ var y = d3.scaleLinear().range([height, 0]);
 // define the line
 var valueline = d3.line()
 .x(function(d) { return x(d.Date); })
-.y(function(d) { return y(d.Active); });
+.y(function(d) { return y(d.Confirmed); });
 var valueDeathline = d3.line()
 .x(function(d) { return x(d.Date); })
 .y(function(d) { return y(d.Deaths); });
@@ -74,10 +74,10 @@ var svg = d3.select("#chart").append("svg")
 .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")");
 
-var active_cases;
+var Confirmed_cases;
 
 
-console.log("active_cases",active_cases)
+console.log("Confirmed_cases",Confirmed_cases)
 // Get the data
 d3.csv("project_data_"+state+".csv", function(error,data) {
 
@@ -87,22 +87,22 @@ if (error) throw error;
 data.forEach(function(d) {
   
   if(d.Date == "11/1/21")
-    active_cases_nov = d.Active;
+    Confirmed_cases_nov = d.Confirmed;
   if(d.Date == "8/1/21")
-    active_cases_aug = d.Active;
+    Confirmed_cases_aug = d.Confirmed;
   if(d.Date == "3/1/21")
-    active_cases_mar = d.Active;
-  console.log("active_cases",active_cases)
+    Confirmed_cases_mar = d.Confirmed;
+  console.log("Confirmed_cases",Confirmed_cases)
   d.Date = parseTime(d.Date);
-  d.Active = +d.Active;
+  d.Confirmed = +d.Confirmed;
   
-  console.log(d.Date, d.Active)
+  console.log(d.Date, d.Confirmed)
 });
 var x_label;
 var y_label;
 // Scale the range of the data
 x.domain(d3.extent(data, function(d) { return x_label=d.Date; }));
-y.domain([0, d3.max(data, function(d) { return y_label=d.Active; })]);
+y.domain([0, d3.max(data, function(d) { return y_label=d.Confirmed; })]);
 
 // Add the valueline path.
 svg.append("path")
@@ -145,9 +145,9 @@ svg.append("g")
     dy: 7,
     dx: 6
   }].map(function (l) {
-    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_nov });
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + Confirmed_cases_nov });
     l.x = x(parseTime("11/1/21"))
-    l.y = y(active_cases_nov)
+    l.y = y(Confirmed_cases_nov)
     return l;
   });
 
@@ -165,9 +165,9 @@ svg.append("g")
     dy: 7,
     dx: 6
   }].map(function (l) {
-    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_aug });
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + Confirmed_cases_aug });
     l.x = x(parseTime("8/1/21"))
-    l.y = y(active_cases_aug)
+    l.y = y(Confirmed_cases_aug)
     return l;
   });
 
@@ -185,9 +185,9 @@ svg.append("g")
     dy: 7,
     dx: 6
   }].map(function (l) {
-    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + active_cases_mar });
+    l.note = Object.assign({}, l.note, { title: state + ":", label: "" + Confirmed_cases_mar });
     l.x = x(parseTime("3/1/21"))
-    l.y = y(active_cases_mar)
+    l.y = y(Confirmed_cases_mar)
     return l;
   });
 
