@@ -106,18 +106,18 @@ y.domain([0, d3.max(data, function(d) { return y_label=d.Confirmed; })]);
 
 // Add the valueline path.
 svg.append("path")
-  .data([data])
+  .data([data]).transition().duration(300).delay(100)
   .attr("class", "line")
-  .attr("d", valueline).transition();
+  .attr("d", valueline);
 
 // Add the valueline path.
 svg.append("path")
-  .data([data])
+  .data([data]).transition().duration(300).delay(200)
   .attr("class", "line")
   .attr("d", valueDeathline).style("stroke","red");
 
 svg.append("path")
-  .data([data])
+  .data([data]).transition().duration(300).delay(300)
   .attr("class", "line")
   .attr("d", valueRecoveredline).style("stroke","green");
 
